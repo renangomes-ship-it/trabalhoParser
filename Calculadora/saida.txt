@@ -1,0 +1,12 @@
+<INT, "2">
+<VEZES, "*">
+<A-PAREN, "(">
+<INT, "1">
+<MAIS, "+">
+<INT, "3">
+<F-PAREN, ")">
+<F-PAREN, ")">
+<MAIS, "+">
+<INT, "4">
+<DIVISÃO, "/">
+<INT, "2">
