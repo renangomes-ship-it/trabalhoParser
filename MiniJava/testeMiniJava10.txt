@@ -1,0 +1,24 @@
+class Geometria {
+    public static void main(String[] args) {
+        Retangulo r = new Retangulo();
+        
+        // Testando acesso direto a atributo (feature extra)
+        r.largura = 10;
+        r.altura = 5;
+        
+        int area = r.calcularArea();
+        
+        System.out.println("Largura: " + r.largura);
+        System.out.println("Altura: " + r.altura);
+        System.out.println("Area total: " + area);
+    }
+}
+
+class Retangulo {
+    int largura;
+    int altura;
+
+    public int calcularArea() {
+        return largura * altura;
+    }
+}

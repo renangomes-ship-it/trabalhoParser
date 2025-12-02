@@ -1,0 +1,34 @@
+class NumerosPrimos {
+    public static void main(String[] a) {
+        Verificador v = new Verificador();
+        // Verifica se 17 eh primo e se 10 eh par
+        boolean teste = v.ehPrimo(17) && v.ehPar(10);
+        System.out.println("Resultado do teste combinado: " + teste);
+    }
+}
+
+class Verificador {
+    public boolean ehPar(int n) {
+        boolean resp = false;
+        if ((n % 2) == 0) {
+            resp = true;
+        } else {
+            resp = false;
+        }
+        return resp;
+    }
+
+    public boolean ehPrimo(int n) {
+        int i = 2;
+        boolean isPrime = true;
+        
+        while (i < n && isPrime) {
+            if ((n % i) == 0) {
+                isPrime = false;
+            } else {
+                i = i + 1;
+            }
+        }
+        return isPrime;
+    }
+}

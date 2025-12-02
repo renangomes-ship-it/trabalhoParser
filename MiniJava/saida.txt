@@ -1,0 +1,15 @@
+<CLASS, "class">
+<ID, "TesteComentario">
+<A-CHAVE, "{">
+<PUBLIC, "public">
+<STATIC, "static">
+<VOID, "void">
+<MAIN, "main">
+<A-PAREN, "(">
+<STRING, "String">
+<A-COLC, "[">
+<F-COLC, "]">
+<ID, "args">
+<F-PAREN, ")">
+<A-CHAVE, "{">
+<ERROR, "Comentario de bloco nao fechado", linha=9, coluna=1>

@@ -1,0 +1,33 @@
+class ArrayTeste {
+    public static void main(String[] args) {
+        vetor v = new vetor();
+        System.out.println(v.iniciar(5));
+    }
+}
+
+class vetor {
+    int[] numeros;
+    int tamanho;
+
+    public int iniciar(int sz) {
+        tamanho = sz;
+        numeros = new int[sz];
+        int i = 0;
+        
+        while (i < tamanho) {
+            numeros[i] = i * 2;
+            i = i + 1;
+        }
+        
+        return this.imprimir();
+    }
+
+    public int imprimir() {
+        int j = 0;
+        while (j < numeros.length) {
+            System.out.println(numeros[j]);
+            j = j + 1;
+        }
+        return 0;
+    }
+}

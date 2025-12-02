@@ -1,0 +1,126 @@
+import java_cup.runtime.*;
+
+/* 1. Definição dos Terminais (Tokens) */
+terminal CLASS, PUBLIC, STATIC, VOID, MAIN, STRING, EXTENDS, RETURN;
+terminal INT, BOOLEAN, IF, ELSE, WHILE, PRINT;
+terminal TRUE, FALSE, THIS, NEW, LENGTH;
+terminal ATRIB, IGUAL, DIFERENTE, MENOR_IGUAL, MENORQ, E, OU;
+terminal MAIS, MENOS, VEZES, DIV, MOD, NEGACAO;
+terminal A_CHAVE, F_CHAVE, A_PAREN, F_PAREN, A_COLC, F_COLC;
+terminal PONTO_VIRGULA, PONTO, VIRGULA;
+terminal Integer NUM;
+terminal String ID, TEXTO;
+
+/* 2. Definição dos Não-Terminais */
+non terminal Program, MainClass, ClassDeclList, ClassDecl;
+non terminal VarDeclList, VarDecl, MethodDeclList, MethodDecl;
+non terminal FormalList, FormalRest, Type;
+non terminal StatementList, Statement;
+non terminal ExpList, ExpRest, Exp;
+
+/* 3. Precedência */
+precedence right ATRIB;
+precedence left OU;
+precedence left E;
+precedence left IGUAL, DIFERENTE;
+precedence left MENORQ, MENOR_IGUAL;
+precedence left MAIS, MENOS;
+precedence left VEZES, DIV, MOD;
+precedence right NEGACAO, NEW; 
+precedence left PONTO, A_COLC; 
+
+/* 4. Início */
+start with Program;
+
+Program ::= MainClass ClassDeclList;
+
+MainClass ::= CLASS ID A_CHAVE VarDeclList PUBLIC STATIC VOID MAIN A_PAREN STRING A_COLC F_COLC ID F_PAREN A_CHAVE StatementList F_CHAVE F_CHAVE;
+
+ClassDeclList ::= ClassDeclList ClassDecl
+                | /* vazio */
+                ;
+
+ClassDecl ::= CLASS ID A_CHAVE VarDeclList MethodDeclList F_CHAVE
+            | CLASS ID EXTENDS ID A_CHAVE VarDeclList MethodDeclList F_CHAVE
+            ;
+
+
+VarDeclList ::= VarDeclList VarDecl
+              | /* vazio */
+              ;
+
+
+VarDecl ::= Type ID PONTO_VIRGULA
+          | Type ID ATRIB Exp PONTO_VIRGULA
+          ;
+
+MethodDeclList ::= MethodDeclList MethodDecl
+                 | /* vazio */
+                 ;
+
+MethodDecl ::= PUBLIC Type ID A_PAREN FormalList F_PAREN A_CHAVE StatementList RETURN Exp PONTO_VIRGULA F_CHAVE;
+
+FormalList ::= Type ID FormalRest
+             | /* vazio */
+             ;
+
+FormalRest ::= FormalRest VIRGULA Type ID
+             | /* vazio */
+             ;
+
+Type ::= INT A_COLC F_COLC
+       | BOOLEAN
+       | INT
+       | STRING  
+       | ID      
+       ;
+
+
+StatementList ::= Statement StatementList
+                | VarDecl StatementList
+                | /* vazio */
+                ;
+
+Statement ::= A_CHAVE StatementList F_CHAVE
+            | IF A_PAREN Exp F_PAREN Statement ELSE Statement
+            | WHILE A_PAREN Exp F_PAREN Statement
+            | PRINT A_PAREN Exp F_PAREN PONTO_VIRGULA
+            | ID ATRIB Exp PONTO_VIRGULA
+            | ID PONTO ID ATRIB Exp PONTO_VIRGULA  /* ALTERADO: Aceita p1.idade = 10; */
+            | ID A_COLC Exp F_COLC ATRIB Exp PONTO_VIRGULA
+            ;
+
+Exp ::= Exp MAIS Exp
+      | Exp MENOS Exp
+      | Exp VEZES Exp
+      | Exp DIV Exp
+      | Exp MOD Exp
+      | Exp MENORQ Exp
+      | Exp MENOR_IGUAL Exp
+      | Exp E Exp
+      | Exp OU Exp
+      | Exp IGUAL Exp
+      | Exp DIFERENTE Exp
+      | Exp A_COLC Exp F_COLC
+      | Exp PONTO LENGTH
+      | Exp PONTO ID A_PAREN ExpList F_PAREN
+      | Exp PONTO ID 
+      | NUM
+      | TRUE
+      | FALSE
+      | ID
+      | TEXTO       
+      | THIS
+      | NEW INT A_COLC Exp F_COLC
+      | NEW ID A_PAREN F_PAREN
+      | NEGACAO Exp
+      | A_PAREN Exp F_PAREN
+      ;
+
+ExpList ::= Exp ExpRest
+          | /* vazio */
+          ;
+
+ExpRest ::= ExpRest VIRGULA Exp
+          | /* vazio */
+          ;
